@@ -21,5 +21,7 @@ SpringBoot提供了一组额外的开发者工具包，可以使开发者在开�
 
 1. SpringBoot默认使用缓存来提供当前应用程序的性能，例如模板引擎会缓存已经编译的模板以避免重复解析模板文件.而且Spring MVC在提供静态资源时为响应添加HTTP缓存头.在生产环境中这些缓存可以为我们带来性能上的提高，但在开发环境中当你对你的应用程序进行了修改，你可能不能立刻看到修改过后的运行结果。
 2. 关于以上讨论的缓存功能，通常都是由应用程序的主配置文件进行配置（application.properties或application.yml）例如，Thymeleaf提供了**spring.thymeleaf.cache**属性.当使用**spring-boot-devtools**模块时，你不需要配置这些繁琐的属性，专注于你的业务，代码就好，这些小事，请交给SpringBoot，**spring-boot-devtools**会自动配置好你在开发环境中的各种设置。
-3. 如果你在开发Web应用，你可能会想看到更多的关于Web开发的请求信息，所以
+
+  
+  **完整spring-boot-devtools配置的属性列表，可以查看**<a style="font-size:23px;" href="https://github.com/spring-projects/spring-boot/blob/v2.1.0.RELEASE/spring-boot-project/spring-boot-devtools/src/main/java/org/springframework/boot/devtools/env/DevToolsPropertyDefaultsPostProcessor.java">DevToolsPropertyDefaultsPostProcessor</a>
 
