@@ -25,3 +25,5 @@ SpringBoot提供了一组额外的开发者工具包，可以使开发者在开�
   
   **完整spring-boot-devtools配置的属性列表，可以查看**<a style="font-size:23px;" href="https://github.com/spring-projects/spring-boot/blob/v2.1.0.RELEASE/spring-boot-project/spring-boot-devtools/src/main/java/org/springframework/boot/devtools/env/DevToolsPropertyDefaultsPostProcessor.java">DevToolsPropertyDefaultsPostProcessor</a>
 
+ 3. 当使用spring-boot-devtools时，你的类路径下文件发生更改的时候,dev-tools会自动重启当前项目。（静态文件除外。） 
+
