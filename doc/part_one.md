@@ -26,5 +26,17 @@ SpringBoot提供了一组额外的开发者工具包，可以使开发者在开�
   **完整spring-boot-devtools配置的属性列表，可以查看**<a style="font-size:23px;" href="https://github.com/spring-projects/spring-boot/blob/v2.1.0.RELEASE/spring-boot-project/spring-boot-devtools/src/main/java/org/springframework/boot/devtools/env/DevToolsPropertyDefaultsPostProcessor.java">DevToolsPropertyDefaultsPostProcessor</a>
 
  3. 当使用spring-boot-devtools时，你的类路径下文件发生更改的时候,dev-tools会自动重启当前项目。（1.静态文件除外。2.自动重启可能需要对IDE进行设置，如IntelliJ）
- 4. Dev-tools依赖于应用程序上下文的shutdown钩子 ，如果你关闭了这个钩子 **(SpringApplication.setRegisterShutdownHook(false)).** 则dev-tools会无法正常工作
+ 4. Dev-tools依赖于应用程序上下文的shutdown钩子 ，如果你关闭了这个钩子 **(SpringApplication.setRegisterShutdownHook(false)).** 则dev-tools会无法正常工作。
+ 5. 当类路径上的条目在更改时触发重新启动时，DevTools会自动忽略名为spring-boot，spring-boot-devtools，spring-boot-autoconfigure，spring-boot-actuator和spring-boot-starter的项目。
+ 6. SpringBoot提供了 <strong class="arrt">spring.devtools.restart.exclude</strong> **属性，可以指定文件改变不触发重启当前项目** ，如果要保留项目默认值并添加其他排除项，可以改用<strong class="arrt">spring.devtools.restart.additional-exclude</strong>属性。dev默认值如图：![](/image/restart-1.png)
+ 7. 如果你不想使用重新启动功能，可以使用<b class="arrt">spring.devtools.restart.enabled</b>将其禁用
+ 8. dev已知问题，对于使用标准ObjectInputStream反序列化的对象，重新启动功能不起作用。如果需要反序列化数据，可能需要将Spring的ConfigurableObjectInputStream与Thread.currentThread（）。getContextClassLoader（）结合使用。
+ 9. spring-boot-devtools模块包含一个嵌入式LiveReload服务器，可用于在资源更改时触发浏览器刷新。 LiveReload浏览器扩展程序可从livereload.com免费用于Chrome，Firefox和Safari[livereload.com]。如果您不想在应用程序运行时启动LiveReload服务器，则可以将<a class="arrt">spring.devtools.livereload.enabled</a>属性设置为false。一次只能运行一个LiveReload服务器。在启动应用程序之前，请确保没有其他LiveReload服务器正在运行。如果从IDE启动多个应用程序，则只有第一个具有LiveReload支持。
 
+
+ <style>
+.arrt{
+color:green;
+font-size:22px;
+}
+</style>
