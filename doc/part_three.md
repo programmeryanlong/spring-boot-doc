@@ -48,9 +48,38 @@ my.number.in.range=${random.int[1024,65536]}
 SpringApplication从以下位置加载`application.properties`文件并载入文件中配置的属性配置到Spring环境中：
 
 1. 当前目录的/config目录
+
 2. 当前目录
+
 3. 类路径下的/config目录
+
 4. 根类路径
 
+ 如果不喜欢`application.properties`作为配置文件名，则可以通过指定`spring.config.name`环境属性来切换到另一个文件名。还可以使用`spring.config.location`属性（以逗号分隔的目录位置或文件路径列表）来引用显式位置。以下示例显示如何指定其他文件名：
 
+````bash
+$ java -jar myproject.jar --spring.config.name=myproject
+````
+
+````bash
+$ java -jar myproject.jar --spring.config.location=classpath:/default.properties,classpath:/override.properties
+````
+
+**24.4  属性文件规范**
+
+除application.properties文件外，还可以使用以下命名约定定义特定于配置文件：
+
+`application-{profile}.properties`
+
+果未显式激活任何配置文件，则会加载application-default.properties中的属性。
+
+特定配置文件和默认配置文件从同一个位置被应用程序加载，特定配置文件属性始终覆盖非特定文件中的属性，无论在jar中还是之外。如果配置了多个配置文件，SpringBoot会采用last-wins 策略来加载属性。例如，spring.profiles.active属性指定的配置文件是在通过SpringApplication API配置的配置文件之后添加的，因此优先。
+
+````yaml
+spring:
+  profiles:
+    active: helloWorld
+#例如你配置了一个application-helloWorld.yml配置文件，
+#你想让这个配置生效，那么你需要在主配置文件里激活这个配置文件
+````
 
