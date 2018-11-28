@@ -8,12 +8,12 @@ starts是spring项目提供的依赖关系描述的集合，使用starts管理�
 2. Springboot提供了@EnableAutoConfiguration(exclude={ClassNameAutoConfiguration.class}),exclude属性可以禁用掉你不需要的自动配置。也可以使用excludeName=全限定类名，还可以在主配置文件中使用spring.autoconfigure.exclude指定不需要的自动配置类。 
 ## 使用@SpringBootApplication 注解
 如果你使用IntelliJ、STS等支持SpringBoot开发的集成开发环境，当你开启一个SpringBoot工程时，会自动生成一个带有 **@SpringBootApplication**注解的类，这一个注解即可开启三个注解（Annotation）的功能，如下：
-    
+​    
     1. @EnableAutoConfiguration (启用SpringBoot自动配置机制)
     2. @ComponentScan (在应用程序所在的包上启用bean扫描)
     3. @Configuration (允许当前类在应用程序上下文注册bean或导入其他的配置)
     4. @SpringBootApplication等同于使用以上三个注解及其默认属性。
-   
+
 # SpringBoot的开发者工具
 SpringBoot提供了一组额外的开发者工具包，可以使开发者在开发过程中更愉悦。只需要把**spring-boot-devtools**坐标导入所使用的依赖管理工具如Maven，Gradle中，就可以使用这些额外的功能。
 
@@ -22,21 +22,15 @@ SpringBoot提供了一组额外的开发者工具包，可以使开发者在开�
 1. SpringBoot默认使用缓存来提供当前应用程序的性能，例如模板引擎会缓存已经编译的模板以避免重复解析模板文件.而且Spring MVC在提供静态资源时为响应添加HTTP缓存头.在生产环境中这些缓存可以为我们带来性能上的提高，但在开发环境中当你对你的应用程序进行了修改，你可能不能立刻看到修改过后的运行结果。
 2. 关于以上讨论的缓存功能，通常都是由应用程序的主配置文件进行配置（application.properties或application.yml）例如，Thymeleaf提供了**spring.thymeleaf.cache**属性.当使用**spring-boot-devtools**模块时，你不需要配置这些繁琐的属性，专注于你的业务，代码就好，这些小事，请交给SpringBoot，**spring-boot-devtools**会自动配置好你在开发环境中的各种设置。
 
-  
+
   **完整spring-boot-devtools配置的属性列表，可以查看**<a style="font-size:23px;" href="https://github.com/spring-projects/spring-boot/blob/v2.1.0.RELEASE/spring-boot-project/spring-boot-devtools/src/main/java/org/springframework/boot/devtools/env/DevToolsPropertyDefaultsPostProcessor.java">DevToolsPropertyDefaultsPostProcessor</a>
 
- 3. 当使用spring-boot-devtools时，你的类路径下文件发生更改的时候,dev-tools会自动重启当前项目。（1.静态文件除外。2.自动重启可能需要对IDE进行设置，如IntelliJ）
- 4. Dev-tools依赖于应用程序上下文的shutdown钩子 ，如果你关闭了这个钩子 **(SpringApplication.setRegisterShutdownHook(false)).** 则dev-tools会无法正常工作。
- 5. 当类路径上的条目在更改时触发重新启动时，DevTools会自动忽略名为spring-boot，spring-boot-devtools，spring-boot-autoconfigure，spring-boot-actuator和spring-boot-starter的项目。
- 6. SpringBoot提供了 <strong class="arrt">spring.devtools.restart.exclude</strong> **属性，可以指定文件改变不触发重启当前项目** ，如果要保留项目默认值并添加其他排除项，可以改用<strong class="arrt">spring.devtools.restart.additional-exclude</strong>属性。dev默认值如图：![](/image/restart-1.png)
- 7. 如果你不想使用重新启动功能，可以使用<b class="arrt">spring.devtools.restart.enabled</b>将其禁用
- 8. dev已知问题，对于使用标准ObjectInputStream反序列化的对象，重新启动功能不起作用。如果需要反序列化数据，可能需要将Spring的ConfigurableObjectInputStream与Thread.currentThread（）。getContextClassLoader（）结合使用。
- 9. spring-boot-devtools模块包含一个嵌入式LiveReload服务器，可用于在资源更改时触发浏览器刷新。 LiveReload浏览器扩展程序可从livereload.com免费用于Chrome，Firefox和Safari[livereload.com]。如果您不想在应用程序运行时启动LiveReload服务器，则可以将<a class="arrt">spring.devtools.livereload.enabled</a>属性设置为false。一次只能运行一个LiveReload服务器。在启动应用程序之前，请确保没有其他LiveReload服务器正在运行。如果从IDE启动多个应用程序，则只有第一个具有LiveReload支持。
+  3. 当使用spring-boot-devtools时，你的类路径下文件发生更改的时候,dev-tools会自动重启当前项目。（1.静态文件除外。2.自动重启可能需要对IDE进行设置，如IntelliJ）
+  4. Dev-tools依赖于应用程序上下文的shutdown钩子 ，如果你关闭了这个钩子 **(SpringApplication.setRegisterShutdownHook(false)).** 则dev-tools会无法正常工作。
+  5. 当类路径上的条目在更改时触发重新启动时，DevTools会自动忽略名为spring-boot，spring-boot-devtools，spring-boot-autoconfigure，spring-boot-actuator和spring-boot-starter的项目。
+  6. SpringBoot提供了 <strong class="arrt">spring.devtools.restart.exclude</strong> **属性，可以指定文件改变不触发重启当前项目** ，如果要保留项目默认值并添加其他排除项，可以改用<strong class="arrt">spring.devtools.restart.additional-exclude</strong>属性。dev默认值如图：![](/image/restart-1.png)
+  7. 如果你不想使用重新启动功能，可以使用<b class="arrt">spring.devtools.restart.enabled</b>将其禁用
+  8. dev已知问题，对于使用标准ObjectInputStream反序列化的对象，重新启动功能不起作用。如果需要反序列化数据，可能需要将Spring的ConfigurableObjectInputStream与Thread.currentThread（）。getContextClassLoader（）结合使用。
+  9. spring-boot-devtools模块包含一个嵌入式LiveReload服务器，可用于在资源更改时触发浏览器刷新。 LiveReload浏览器扩展程序可从livereload.com免费用于Chrome，Firefox和Safari[livereload.com]。如果您不想在应用程序运行时启动LiveReload服务器，则可以将<a class="arrt">spring.devtools.livereload.enabled</a>属性设置为false。一次只能运行一个LiveReload服务器。在启动应用程序之前，请确保没有其他LiveReload服务器正在运行。如果从IDE启动多个应用程序，则只有第一个具有LiveReload支持。
+  10. 
 
-
- <style>
-.arrt{
-color:green;
-font-size:22px;
-}
-</style>
