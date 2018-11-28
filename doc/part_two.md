@@ -30,6 +30,34 @@ Identify and stop the process that's listening on port 8080 or configure this ap
 
 :musical_note: Spring Boot提供了许多FailureAnalyzer实现，您可以添加自己的[实现](https://docs.spring.io/spring-boot/docs/2.1.0.RELEASE/reference/htmlsingle/#howto-failure-analyzer)
 
+**23.2   自定义banner**
+
+:mushroom:banner就是SpringBoot项目启动时的logo样式，默认效果如下：
+
+````  tx
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.0.4.RELEASE)
+
+````
+
+​	可以通过将banner.txt文件添加到类路径或将`spring.banner.location`属性设置为此类文件的位置来更改启动时打印的横幅。如果文件的编码不是UTF-8，则可以设置`spring.banner.charset`。除了文本文件，您还可以将banner.gif，banner.jpg或banner.png图像文件添加到类路径或设置`spring.banner.image.location`属性。图像将转换为ASCII字符表示，并打印在文本横幅上方。
+
+在banner.txt文件中，您可以使用以下任何占位符：
+
+|                            占位符                            | 描述                                                         |
+| :----------------------------------------------------------: | :----------------------------------------------------------- |
+|                   `${application.version}`                   | 应用程序的版本号，在MANIFEST.MF中声明。例如，Implementation-Version：1.0打印为1.0。 |
+|              `${application.formatted-version}`              | 应用程序的版本号，在MANIFEST.MF中声明并格式化以显示（用括号括起并以v为前缀）。例如（v1.0）。 |
+|                   `${spring-boot.version}`                   | 正在使用的Spring Boot版本。例如2.1.0.RELEASE。               |
+|              `${spring-boot.formatted-version}`              | 您正在使用的Spring Boot版本，格式化显示（用括号括起来并以v为前缀）。例如（v2.1.0.RELEASE）。 |
+| ``${Ansi.NAME} (or ${AnsiColor.NAME}, ${AnsiBackground.NAME}, ${AnsiStyle.NAME})` | 其中NAME是ANSI转义码的名称。有关详细信息，请参见[AnsiPropertySource](https://github.com/spring-projects/spring-boot/tree/v2.1.0.RELEASE/spring-boot-project/spring-boot/src/main/java/org/springframework/boot/ansi/AnsiPropertySource.java) |
+|                    `${application.title}`                    | 应用程序的标题，如MANIFEST.MF中所声明的。例如，Implementation-Title：MyApp打印为MyApp。 |
+
 
 
  
