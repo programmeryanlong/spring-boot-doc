@@ -60,5 +60,57 @@ Identify and stop the process that's listening on port 8080 or configure this ap
 
 
 
- 
+ :star:您还可以使用`spring.main.banner-mode`属性来确定是否必须在System.out（控制台）上打印横幅，发送到配置的记录器（日志），或者根本不生成横幅（关闭banner）。
+
+**23.3    自定义SpringApplication**
+
+​	如果自动创建的SpringApplication默认值不符合您的需要，可以自定义创建一个SpringApplication实例并对其进行自定义。例如，要关闭横幅，可以这样自定义启动代码：
+
+````java
+public static void main(String[] args) {
+	SpringApplication app = new SpringApplication(MySpringConfiguration.class);
+	app.setBannerMode(Banner.Mode.OFF);
+	app.run(args);
+}
+````
+
+:airplane:有关配置选项的完整列表，请参阅[SpringApplication Javadoc](https://docs.spring.io/spring-boot/docs/2.1.0.RELEASE/api/org/springframework/boot/SpringApplication.html)。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
