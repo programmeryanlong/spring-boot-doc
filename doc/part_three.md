@@ -83,3 +83,31 @@ spring:
 #你想让这个配置生效，那么你需要在主配置文件里激活这个配置文件
 ````
 
+**24.5 配置文件中的占位符**
+
+application.properties中的值在使用时通过现有环境进行过滤，因此您可以返回先前定义的值。
+
+````properties
+app.name=MyApp
+app.description=${app.name} is a Spring Boot application
+````
+
+使用@ConfigurationProperties进行注入，例如
+
+````yaml
+my :
+ age : 18
+ name : java
+````
+
+````java
+@ConfigurationProperties(prefix="my")
+public class Person {
+	private Integer age;
+    private String name;
+	//省略getter和setter
+}
+````
+
+SpringBoot会自动根据配置文件中我们设置的值，为当前应用上下文中添加一个Person对象(age:18,name:java)
+
