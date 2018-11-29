@@ -102,6 +102,7 @@ my :
 
 ````java
 @ConfigurationProperties(prefix="my")
+@Component
 public class Person {
 	private Integer age;
     private String name;
@@ -110,4 +111,64 @@ public class Person {
 ````
 
 SpringBoot会自动根据配置文件中我们设置的值，为当前应用上下文中添加一个Person对象(age:18,name:java)
+
+````yaml
+#在yaml中定义数组
+my:
+ array:
+	- dev.example.com
+	- another.example.com
+#在yaml中定义List
+my:
+ list:
+ 	-a
+ 	-b
+ 	-c
+#在yaml中定义Map
+my:
+ map :
+   key1: value1
+   "[/key2]":value2
+   "/key3":value3
+#如果设置的key中只包含数字，字母和"-"，则无需加上引号
+#key中保护以上之外的符号，须加上"[]"
+#如果key中包含之外的符号且没有加"[]"，则会被自动忽略
+#以上设置map key为{key1,/key2,key3}
+````
+
+在通过yml配置JavaBean时，要注意在当前项目的配置类上加上`@EnableConfigurationProperties`注解，开启配置功能，同时在代码里，注入的变量名要与配置文件中声明的配置保持一直，否则会注入失败，如下。
+
+````java
+@Component
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ConfigurationProperties(prefix = "my")
+public class Person {
+    private String[] array;
+    private Map<String,String> map ;
+    private List<String> list;
+
+}
+//代码2-4行使用了lombok提供的注解。（lombok可以帮助我们自动生成getter，setter等一些样板代码）
+````
+
+当Spring绑定到@ConfigurationProperties bean时，Spring Boot会尝试将外部应用程序属性强制转换为正确的类型。
+
+**24.6 校验**
+
+​	只要使用Spring的@Validated注释注释，Spring Boot就会尝试验证@ConfigurationProperties类。可以直接在配置类上使用JSR-303 javax.validation约束注释。为此，请确保符合条件的JSR-303实现位于类路径上，然后将约束注释添加到字段中，如以下示例所示：
+
+````java
+@ConfigurationProperties(prefix="acme")
+@Validated
+public class AcmeProperties {
+
+	@NotNull
+	private InetAddress remoteAddress;
+
+	// ... getters and setters
+
+}
+````
 
